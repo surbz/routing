@@ -1,0 +1,6 @@
+name: DrupalCamp
+type: module
+description: 'Provides routing demo.'
+package: DrupalCamp London
+version: VERSION
+core: 8.x
