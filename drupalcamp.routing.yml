@@ -1,18 +1,21 @@
-drupalcamp.content: #Each route is defined as a machine name in the form of module_name.route_name with the following properties
-  path: '/example' #path is a required param it can have static or dynamic aruguments Note that the first item of the path must not be dynamic.
-  defaults:
-    _controller: '\Drupal\drupalcamp\Controller\ExampleController::content' #PSR 4 folder mapping to modules/modulename/src/Conrtoller
-    _title: 'Lets take the best route' #_title (optional): The page title for the route. May differ from the menu link title.
-  requirements: #Determines what conditions must be met in order to grant access to the route.Provide obe of the followinf propertied to determine the conditions to be met .
-    _permission: 'access content'
-    #You can specify multiple permissions by separating them with ',' (comma) for AND logic or '+' (plus) for OR logic.
-    # E.g., _permission: 'access content,access user profiles'
-    #_role: A specific Drupal role, eg. 'administrator'. You can specify multiple ones via "," for AND and "+" for OR logic. Note that, since the roles available may differ between sites, it's recommended to use permission based access restriction when possible.
-    #_access: Set this to "'TRUE'" (with the single quotes) to have access granted to this route in all circumstances .
-  options: #these are optional properties
-    no_cache: 'TRUE'
-    #_admin_route: TRUE  #Indicates should admin theme be used for this route or not.
+#Each route is defined as a machine name in the form of module_name.route_name with the following properties
+#path is a required param it can have static or dynamic aruguments Note that the first item of the path must not be dynamic.
+# slug is a dynamic paramer Note that the first item of the path must not be dynamic. You can also define optional parameters at the end of your path
+#_title (optional): The page title for the route. May differ from the menu link title.
+#requirements: Determines what conditions must be met in order to grant access to the route.Provide obe of the followinf propertied to determine the conditions to be met .
+#You can specify multiple permissions by separating them with ',' (comma) for AND logic or '+' (plus) for OR logic.
+# E.g., _permission: 'access content,access user profiles'
+#_role: A specific Drupal role, eg. 'administrator'. You can specify multiple ones via "," for AND and "+" for OR logic. Note that, since the roles available may differ between sites, it's recommended to use permission based access restriction when possible.
+#_access: Set this to "'TRUE'" (with the single quotes) to have access granted to this route in all circumstances .
+#options are optional properties
+#no_cache: 'TRUE'
+#_admin_route: TRUE  #Indicates should admin theme be used for this route or not.
 
+
+#Demo starts
+#1./blog
+#2.role :dmin - Access Denied
+#3.blog/1 - 404
 drupalcamp.bloglist:
   path: '/blog'
   defaults:
@@ -20,30 +23,28 @@ drupalcamp.bloglist:
     _title: 'Lists blog'
   requirements:
     _permission: 'access content'
+    _role: 'administrator'
 
+#4.slug w/o any requirememts /blog/1 /blog/name /blog/ /blog?
+#5. events - same routes
+#6. slug = +d
+#7. events = en|fr
+#8. events - english - 404
 drupalcamp.blogshow:
-  path: '/blog/{slug}' # slug is a dynamic paramer Note that the first item of the path must not be dynamic. You can also define optional parameters at the end of your path
+  path: '/blog/{slug}'
   defaults:
     _controller: '\Drupal\drupalcamp\Controller\ExampleController::blogshow'
     _title: 'Shows blog'
   requirements:
     _permission: 'access content'
     #slug: '\d+'
-    slug: en|fr
-
-drupalcamp.blogadvanced:
-  # /blog/2018/my-post.html
-  path: '/blog/{year}/{slug}.{format}' #a max of 9 srgs can be passed in a route
-  defaults:
-    _controller: '\Drupal\drupalcamp\Controller\ExampleController::blogadvanced'
-    _title: 'Shows advanced'
-  requirements:
-    _permission: 'access content'
-    year: \d+
-    format:  html|rss
+    #slug: en|fr
 
 
-#@todo Passing arguments form routes to Controller
+#9. /blog/2018/my-post.html
+
+
+#10. passing default arguments form routes to Controller - example we have issues of the type  bug reports, feature requests and support requests
 drupalcamp.customarg:
   path: '/customarg/{arg}'
   defaults:
@@ -52,10 +53,15 @@ drupalcamp.customarg:
   requirements:
     _permission: 'access content'
 
-drupalcamp.user: #named parameters additional
+#11. named parameters additional
+drupalcamp.user:
   path: 'example/{user}'
   defaults:
     _controller: '\Drupal\drupalcamp\Controller\ExampleController::testuser'
   requirements:
     _permission: 'access content'
     user: '^[a-zA-Z0-9_]+'
+
+#12. Not juts HTML we can also return JSON and use sanitise functions.
+
+#13. IF time left page callbacks to route converisions <only theoretic> https://www.appliedtrust.com/blog/2013/08/whats-new-in-d8-page-callbacks-to-route-conversions

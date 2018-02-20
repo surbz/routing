@@ -18,6 +18,9 @@ getRequestUri
 getUri
 getUriForPath*/
 
+//@todo - comments
+
+
 /**
  * An example controller.
  */
@@ -33,9 +36,6 @@ class ExampleController extends ControllerBase {
     return $build;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function bloglist() {
     $build = [
       '#markup' => t('Hello Blog List!'),
@@ -43,13 +43,7 @@ class ExampleController extends ControllerBase {
     return $build;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function blogshow($slug) {
-    // $slug will equal the dynamic part of the URL
-    // e.g. at /blog/yay-routing, then $slug='yay-routing'
-
     $build = [
       '#markup' => t('Hello Blog Show!'),
     ];
@@ -63,9 +57,6 @@ class ExampleController extends ControllerBase {
     return $build;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function testuser(AccountInterface $user, Request $request) {
     $build = [
       '#markup' => var_dump($user).t('Hello Blog List!'),
