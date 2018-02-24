@@ -18,31 +18,27 @@ getRequestUri
 getUri
 getUriForPath*/
 
-//@todo - comments
-
-
 /**
  * An example controller.
  */
 class ExampleController extends ControllerBase {
-
   /**
-   * {@inheritdoc}
-   */
+  * Matches /example exactly
+  *
+  * @Route("/example", name="content")
+  */
   public function content() {
     $build = [
-      '#markup' => t('Hello World!'),
+      '#markup' => t('Hi there!'),
     ];
     return $build;
   }
 
-  public function bloglist() {
-    $build = [
-      '#markup' => t('Hello Blog List!'),
-    ];
-    return $build;
-  }
-
+  /**
+  * Matches /blog/*
+  *
+  * @Route("/blog/{slug}", name="blogshow")
+  */
   public function blogshow($slug) {
     $build = [
       '#markup' => t('Hello Blog Show!'),
@@ -50,14 +46,27 @@ class ExampleController extends ControllerBase {
     return $build;
   }
 
-  public function customarg($arg) {
+  /**
+  * Matches /blog/*
+  *
+  * @Route("/blog/{event}", name="eventshow")
+  */
+  public function eventshow($event) {
     $build = [
-      '#markup' => $arg,
+      '#markup' => t('Hello Event Show!'),
     ];
     return $build;
   }
 
-  public function testuser(AccountInterface $user, Request $request) {
+  public function issuetype($arg) {
+    $build = [
+      '#markup' => 'The issue if of the type ' . $arg,
+    ];
+    return $build;
+  }
+
+  public function showuser(AccountInterface $user, Request $request) {
+    // Do something with $user.
     $build = [
       '#markup' => var_dump($user).t('Hello Blog List!'),
     ];

@@ -12,22 +12,22 @@
 #_admin_route: TRUE  #Indicates should admin theme be used for this route or not.
 
 
-#Demo starts
-#1./blog
-#2.role :dmin - Access Denied
-#3.blog/1 - 404
-drupalcamp.bloglist:
-  path: '/blog'
+#Demo
+#1./example as admin
+#2.role :admin - Access Denied for anonynous user
+#3.example/1 - 404 as admin
+drupalcamp.content:
+  path: '/example'
   defaults:
-    _controller: '\Drupal\drupalcamp\Controller\ExampleController::bloglist'
-    _title: 'Lists blog'
+    _controller: '\Drupal\drupalcamp\Controller\ExampleController::content'
+    _title: 'Example'
   requirements:
     _permission: 'access content'
     _role: 'administrator'
 
 #4.slug w/o any requirememts /blog/1 /blog/name /blog/ /blog?
 #5. events - same routes
-#6. slug = +d
+#6. slug = +d - so 404 on string and 200 on integrers only
 #7. events = en|fr
 #8. events - english - 404
 drupalcamp.blogshow:
@@ -36,32 +36,37 @@ drupalcamp.blogshow:
     _controller: '\Drupal\drupalcamp\Controller\ExampleController::blogshow'
     _title: 'Shows blog'
   requirements:
-    _permission: 'access content'
-    #slug: '\d+'
-    #slug: en|fr
+    _access: 'TRUE'
+    slug: '\d+'
 
+drupalcamp.eventshow:
+  path: '/blog/{event}'
+  defaults:
+    _controller: '\Drupal\drupalcamp\Controller\ExampleController::eventshow'
+    _title: 'Shows event'
+  requirements:
+    _access: 'TRUE'
+    event: en|fr
 
 #9. /blog/2018/my-post.html
 
 
 #10. passing default arguments form routes to Controller - example we have issues of the type  bug reports, feature requests and support requests
-drupalcamp.customarg:
-  path: '/customarg/{arg}'
+drupalcamp.issuetype:
+  path: '/issuetype/{arg}'
   defaults:
-    _controller: '\Drupal\drupalcamp\Controller\ExampleController::customarg'
-    arg: '12'
+    _controller: '\Drupal\drupalcamp\Controller\ExampleController::issuetype'
+    arg: 'support request'
   requirements:
-    _permission: 'access content'
+    _access: 'TRUE'
 
 #11. named parameters additional
-drupalcamp.user:
-  path: 'example/{user}'
+drupalcamp.showuser:
+  path: 'showuser/{user}'
   defaults:
-    _controller: '\Drupal\drupalcamp\Controller\ExampleController::testuser'
+    _controller: '\Drupal\drupalcamp\Controller\ExampleController::showuser'
   requirements:
     _permission: 'access content'
     user: '^[a-zA-Z0-9_]+'
 
 #12. Not juts HTML we can also return JSON and use sanitise functions.
-
-#13. IF time left page callbacks to route converisions <only theoretic> https://www.appliedtrust.com/blog/2013/08/whats-new-in-d8-page-callbacks-to-route-conversions
