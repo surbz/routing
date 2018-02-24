@@ -6,17 +6,6 @@ use Drupal\Core\Session\AccountInterface;//
 /*Defines an account interface which represents the current user.
 
 Defines an object that has a user id, roles and can have session data. The interface is implemented both by the global session and the user entity.*/
-use Symfony\Component\HttpFoundation\Request;
-/*Request represents an HTTP request.
-
-The methods dealing with URL accept / return a raw path (% encoded):
-
-getBasePath
-getBaseUrl
-getPathInfo
-getRequestUri
-getUri
-getUriForPath*/
 
 /**
  * An example controller.
@@ -73,10 +62,4 @@ class ExampleController extends ControllerBase {
     return $build;
   }
 
-  public function blogadvanced($year,$slug) {
-    $build = [
-      '#markup' => 'Test',
-    ];
-    return $build;
-  }
 }

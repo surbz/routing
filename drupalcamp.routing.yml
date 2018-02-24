@@ -48,10 +48,8 @@ drupalcamp.eventshow:
     _access: 'TRUE'
     event: en|fr
 
-#9. /blog/2018/my-post.html
 
-
-#10. passing default arguments form routes to Controller - example we have issues of the type  bug reports, feature requests and support requests
+#9. passing default arguments form routes to Controller - example we have issues of the type  bug reports, feature requests and support requests
 drupalcamp.issuetype:
   path: '/issuetype/{arg}'
   defaults:
@@ -60,7 +58,7 @@ drupalcamp.issuetype:
   requirements:
     _access: 'TRUE'
 
-#11. named parameters additional
+#10. named parameters additional
 drupalcamp.showuser:
   path: 'showuser/{user}'
   defaults:
@@ -68,5 +66,3 @@ drupalcamp.showuser:
   requirements:
     _permission: 'access content'
     user: '^[a-zA-Z0-9_]+'
-
-#12. Not juts HTML we can also return JSON and use sanitise functions.
